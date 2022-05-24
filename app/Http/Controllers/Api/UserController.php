@@ -53,8 +53,7 @@ class UserController extends Controller
 
             $user = $this->repository->create($user);
 
-            $loginRequest = Request::create('api/auth/login', 'POST', ['email' => $request->email,
-            'password' => $request->password]);
+            $loginRequest = Request::create('api/auth/login', 'POST', ['email' => $request->email, 'password' => $request->password]);
 
             return app()->handle($loginRequest)->getContent();
             /* return response()->json([

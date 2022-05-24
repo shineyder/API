@@ -16,10 +16,10 @@ class UserPermissionController extends Controller
     )
     {
         try {
-            return response()->json([
-                'data' => $service->handle($request->validated()),
-                'message' => 'Permissões do usuário atualizadas com sucesso'
-            ], Response::HTTP_OK);
+            return response()->json(
+                $service->handle($request->validated()),
+                //'message' => 'Permissões do usuário atualizadas com sucesso'
+            Response::HTTP_OK);
 
         } catch (Throwable $exception) {
             report($exception);
