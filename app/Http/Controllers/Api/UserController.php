@@ -56,10 +56,6 @@ class UserController extends Controller
             $loginRequest = Request::create('api/auth/login', 'POST', ['email' => $request->email, 'password' => $request->password]);
 
             return app()->handle($loginRequest)->getContent();
-            /* return response()->json([
-                'message' => 'Usuário criado com sucesso',
-                'data' => $user->getModelData(),
-            ], Response::HTTP_CREATED); */
 
         } catch (Throwable $exception) {
             return response()->json([

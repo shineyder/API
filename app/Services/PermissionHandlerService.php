@@ -20,13 +20,11 @@ class PermissionHandlerService
     {
     }
 
-    public function handle(array $data): User
+    public function handle(User $user, array $data): User
     {
-        $this->validate($data);
+        $this->validate($user, $data);
 
         $resourcePermission = $this->getResourcePermission($data);
-
-        $user = $this->userRepository->getEntityById($data['user_id']);
 
         $this->isAdmin();
 
@@ -37,18 +35,17 @@ class PermissionHandlerService
         return $this->createPermission($user, $resourcePermission);
     }
 
-    private function validate(array $data): self
+    private function validate(User $user, array $data): self
     {
+        if ($user->getId() == null) {
+            throw new PermissionHandlingException('É necessário que seja um usuário válido', Response::HTTP_BAD_REQUEST);
+        }
         if (empty($data)) {
             throw new PermissionHandlingException('É necessário que os dados sejam válidos', Response::HTTP_BAD_REQUEST);
         }
 
         if (!isset($data['resource_id'])) {
             throw new PermissionHandlingException('É necessário que seja informado o recurso', Response::HTTP_BAD_REQUEST);
-        }
-
-        if (!isset($data['user_id'])) {
-            throw new PermissionHandlingException('É necessário que seja informado o usuário', Response::HTTP_BAD_REQUEST);
         }
 
         if (!isset($data['view'])) {

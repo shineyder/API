@@ -14,10 +14,6 @@ class apiProtectedRoute extends BaseMiddleware
     public function handle(Request $request, Closure $next, ...$guards)
     {
         try {
-            /* if ($jwt = $request->cookie('jwt')) {
-                $request->headers->set('Authorization', 'Bearer ' . $jwt);
-            } */
-
             $this->authenticate($request, $guards);
 
         } catch (\Exception $e) {

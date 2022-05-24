@@ -14,7 +14,7 @@ class UserRepository
 
     public function list()
     {
-        return $this->model->get();
+        return $this->model->with(['resourcePermissions', 'resourcePermissions.resource'])->get();
     }
 
     public function getEntityById(int $id): UserEntity

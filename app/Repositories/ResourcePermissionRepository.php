@@ -13,22 +13,6 @@ class ResourcePermissionRepository
     {
     }
 
-    /* public function list()
-    {
-        return $this->model->get();
-    }
-
-    public function getById(int $id): ResourcePermissionModel
-    {
-        $existentResourcePermission = $this->model->find($id);
-
-        if (!isset($existentResourcePermission)) {
-            throw new InvalidArgumentException('Não foi possível encontrar o Resource Permission com este id');
-        }
-
-        return $existentResourcePermission;
-    }*/
-
     public function getByUserIdAndResourceId(int $userId, int $resourceId): ResourcePermissionModel
     {
         $existentResourcePermission = ResourcePermissionModel::where([
@@ -62,20 +46,11 @@ class ResourcePermissionRepository
         }
 
         $existentResourcePermission = $this->getByUserIdAndResourceId($userId, $resource->getId());
-        
+
         $existentResourcePermission->fill($resourcePermission->getModelData());
         $existentResourcePermission->save();
 
         $resourcePermission->fill($existentResourcePermission->toArray());
         return $resourcePermission;
     }
-
-    /* public function delete(int $id): bool
-    {
-        if ($id < 1) {
-            throw new InvalidArgumentException('É necessário um id válido para excluir a Resource Permission');
-        }
-
-        return $this->model->destroy($id);
-    } */
 }
