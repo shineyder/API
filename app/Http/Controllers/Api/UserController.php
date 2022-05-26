@@ -101,6 +101,7 @@ class UserController extends Controller
             ], Response::HTTP_OK);
 
         } catch (Throwable $exception) {
+            report($exception);
             return response()->json([
                 'message' => 'Falha ao deletar usuário'
             ], Response::HTTP_BAD_REQUEST);

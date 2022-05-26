@@ -20,7 +20,7 @@ class ResourceController extends Controller
 
         } catch (Throwable $exception) {
             return response()->json([
-                'message' => 'Falha ao buscar a lista de usuários'
+                'message' => 'Falha ao buscar a lista de recursos'
             ], Response::HTTP_BAD_REQUEST);
         }
     }

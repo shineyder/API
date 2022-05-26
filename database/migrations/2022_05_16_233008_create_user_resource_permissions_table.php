@@ -23,8 +23,8 @@ return new class extends Migration
             $table->boolean('delete');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('resource_id')->references('id')->on('resources');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('resource_id')->references('id')->on('resources')->onDelete('cascade');
         });
     }
 

@@ -25,13 +25,15 @@ Route::prefix('auth')->group(function () {
     Route::middleware('apiJWT')->get('/user', [AuthController::class, 'userProfile'])->name('auth.userProfile');
 });
 
-Route::prefix('user')->middleware('apiJWT')->group(function () {
-    Route::get('/', [UserController::class, 'index'])->name('user.index');
-    Route::get('/{id}', [UserController::class, 'info'])->name('user.info');
-    Route::put('/{id}', [UserController::class, 'update'])->name('user.update');
-    Route::delete('/{id}', [UserController::class, 'delete'])->name('user.delete');
-    Route::post('/permission', [UserPermissionController::class, 'updateMultiplePermission'])->name('permission.update');
-    /* Route::middleware('apiJWT')->post('/permission', [UserPermissionController::class, 'updateOnePermission'])->name('permission.update'); */
-});
+Route::middleware('apiJWT')->group(function () {
+    Route::prefix('user')->group(function () {
+        Route::get('/', [UserController::class, 'index'])->name('user.index');
+        Route::get('/{id}', [UserController::class, 'info'])->name('user.info');
+        Route::put('/{id}', [UserController::class, 'update'])->name('user.update');
+        Route::delete('/{id}', [UserController::class, 'delete'])->name('user.delete');
+        Route::post('/permission', [UserPermissionController::class, 'updateMultiplePermission'])->name('permission.update');
+        /* Route::middleware('apiJWT')->post('/permission', [UserPermissionController::class, 'updateOnePermission'])->name('permission.update'); */
+    });
 
-Route::middleware('apiJWT')->get('/resource', [ResourceController::class, 'list'])->name('permission.list');
+    Route::get('/resource', [ResourceController::class, 'list'])->name('permission.list');
+});

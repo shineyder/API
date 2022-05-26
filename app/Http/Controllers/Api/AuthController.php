@@ -43,7 +43,8 @@ class AuthController extends Controller
         }
     }
 
-    public function userProfile() {
+    public function userProfile()
+    {
         try {
             $user = auth(guard: 'api')->user();
             return response()->json($this->repository->getEntityById($user['id']), Response::HTTP_OK);

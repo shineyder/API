@@ -19,8 +19,7 @@ class UserPermissionController extends Controller
     {
     }
 
-    public function updateOnePermission(UserUniquePermissionUpdateRequest $request
-    )
+    public function updateOnePermission(UserUniquePermissionUpdateRequest $request)
     {
         try {
             return response()->json(
@@ -43,7 +42,6 @@ class UserPermissionController extends Controller
                 Response::HTTP_OK
             );
         } catch (Throwable $exception) {
-            report($exception);
             return response()->json([
                 'message' => 'Falha ao atualizar a permissão do usuário. ' . $exception->getMessage()
             ], $exception->getCode());
