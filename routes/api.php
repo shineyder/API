@@ -31,10 +31,7 @@ Route::prefix('user')->middleware('apiJWT')->group(function () {
     Route::put('/{id}', [UserController::class, 'update'])->name('user.update');
     Route::delete('/{id}', [UserController::class, 'delete'])->name('user.delete');
     Route::post('/permission', [UserPermissionController::class, 'updateMultiplePermission'])->name('permission.update');
+    /* Route::middleware('apiJWT')->post('/permission', [UserPermissionController::class, 'updateOnePermission'])->name('permission.update'); */
 });
-
-/* Route::middleware('apiJWT')->post('/permission', [UserPermissionController::class, 'updateOnePermission'])->name('permission.update'); */
-
-
 
 Route::middleware('apiJWT')->get('/resource', [ResourceController::class, 'list'])->name('permission.list');

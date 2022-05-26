@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserMultiplePermissionUpdateRequest;
 use App\Http\Requests\UserUniquePermissionUpdateRequest;
 use App\Services\PermissionMultipleHandlerService;
 use App\Services\PermissionUniqueHandlerService;
@@ -11,14 +12,19 @@ use Throwable;
 
 class UserPermissionController extends Controller
 {
-    public function updateOnePermission(
-        UserUniquePermissionUpdateRequest $request,
-        PermissionUniqueHandlerService $service
+    public function __construct(
+        private PermissionUniqueHandlerService $serviceUnique,
+        private PermissionMultipleHandlerService $serviceMultiple
+    )
+    {
+    }
+
+    public function updateOnePermission(UserUniquePermissionUpdateRequest $request
     )
     {
         try {
             return response()->json(
-                $service->handle($request->validated()),
+                $this->serviceUnique->handle($request->validated()),
                 Response::HTTP_OK
             );
         } catch (Throwable $exception) {
@@ -29,14 +35,11 @@ class UserPermissionController extends Controller
         }
     }
 
-    public function updateMultiplePermission(
-        UserUniquePermissionUpdateRequest $request,
-        PermissionMultipleHandlerService $service
-    )
+    public function updateMultiplePermission(UserMultiplePermissionUpdateRequest $request)
     {
         try {
             return response()->json(
-                $service->handle($request->validated()),
+                $this->serviceMultiple->handle($request->validated()),
                 Response::HTTP_OK
             );
         } catch (Throwable $exception) {

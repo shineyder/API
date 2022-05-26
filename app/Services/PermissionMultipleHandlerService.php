@@ -11,7 +11,8 @@ class PermissionMultipleHandlerService
 {
     public function __construct(
         private UserRepository $userRepository,
-        private PermissionHandlerService $handler)
+        private PermissionHandlerService $handler
+    )
     {
     }
 

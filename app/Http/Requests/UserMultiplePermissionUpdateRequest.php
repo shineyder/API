@@ -25,7 +25,7 @@ class UserMultiplePermissionUpdateRequest extends FormRequest
     {
         return [
             'user_id' => 'required|integer',
-            'resource_id' => 'required|array'
+            'resource_permissions' => 'required|array'
         ];
     }
 }
