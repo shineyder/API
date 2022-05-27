@@ -12,14 +12,14 @@ Recursos: Produtos, Categorias e Marcas.
 Back-end: Laravel, banco de dados Mysql.<br>
 Autenticação: JWT Token.
 
-<h3>Instalação</h3>
-Clone o repositório (git clone https://github.com/shineyder/API.git) e entre na pasta do projeto<br>
-Execute o comando ```composer install``` para instalar as dependencias<br>
-Execute o comando ```php artisan key:generate``` para o Laravel gerar a chave dessa aplicação<br>
-Copie o arquivo ```.env.example```, renomeie para ```.env``` e configure de acordo.<br>
-Execute o comando ```php artisan jwt:secret``` para gerar a chave JWT<br>
-Execute o comando ```php artisan migrate --seed``` para gerar as tabelas no banco de dados<br>
-Inicie a aplicação com o comando ```php artisan serve```<br>
+## Instalação ##
+1) Clone o repositório (git clone https://github.com/shineyder/API.git) e entre na pasta do projeto<br>
+2) Execute o comando ```composer install``` para instalar as dependencias<br>
+3) Execute o comando ```php artisan key:generate``` para o Laravel gerar a chave dessa aplicação<br>
+4) Copie o arquivo ```.env.example```, renomeie para ```.env``` e configure de acordo.<br>
+5) Execute o comando ```php artisan jwt:secret``` para gerar a chave JWT<br>
+6) Execute o comando ```php artisan migrate --seed``` para gerar as tabelas no banco de dados<br>
+7) Inicie a aplicação com o comando ```php artisan serve```<br>
 
 OBS:<br>
 Em ```database/seeders/UserSeeder.php``` estão os usuários criados para testes
