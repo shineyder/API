@@ -15,8 +15,8 @@ Autenticação: JWT Token.
 ## Instalação ##
 1) Clone o repositório (git clone https://github.com/shineyder/API.git) e entre na pasta do projeto<br>
 2) Execute o comando ```composer install``` para instalar as dependencias<br>
-3) Execute o comando ```php artisan key:generate``` para o Laravel gerar a chave dessa aplicação<br>
-4) Copie o arquivo ```.env.example```, renomeie para ```.env``` e configure de acordo.<br>
+3) Copie o arquivo ```.env.example```, renomeie para ```.env``` e configure de acordo.<br>
+4) Execute o comando ```php artisan key:generate``` para o Laravel gerar a chave dessa aplicação<br>
 5) Execute o comando ```php artisan jwt:secret``` para gerar a chave JWT<br>
 6) Execute o comando ```php artisan migrate --seed``` para gerar as tabelas no banco de dados<br>
 7) Inicie a aplicação com o comando ```php artisan serve```<br>
