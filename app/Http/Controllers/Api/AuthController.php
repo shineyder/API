@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
@@ -53,8 +54,15 @@ class AuthController extends Controller
         }
     }
 
-    public function error()
+    public function refresh()
     {
-        return redirect(Route('home'));
+        try {
+            $token = JWTAuth::getToken();
+            $token = JWTAuth::refresh($token);
+            return response()->json($token, Response::HTTP_OK);
+        } catch (Throwable $exception) {
+            return response()->json([], Response::HTTP_BAD_REQUEST);
+        }
+
     }
 }

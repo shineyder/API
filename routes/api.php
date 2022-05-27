@@ -20,7 +20,8 @@ use App\Http\Controllers\Api\UserPermissionController;
 Route::prefix('auth')->group(function () {
     Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
     Route::post('/register', [UserController::class, 'create'])->name('auth.register');
-    Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
+    Route::post('/refresh', [AuthController::class, 'refresh'])->name('auth.refresh');
+    Route::middleware('apiJWT')->post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
     Route::middleware('apiJWT')->get('/user', [AuthController::class, 'userProfile'])->name('auth.userProfile');
 });
