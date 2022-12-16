@@ -2,8 +2,6 @@
 
 namespace App\Services;
 
-use App\Entities\ResourcePermission;
-use App\Entities\User;
 use App\Exceptions\PermissionHandlingException;
 use App\Repositories\UserRepository;
 use Symfony\Component\HttpFoundation\Response;

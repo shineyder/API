@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Entities\ResourcePermission as ResourcePermissionEntity;
-use App\Models\Resource;
 use App\Models\UserResourcePermission as ResourcePermissionModel;
 use InvalidArgumentException;
 

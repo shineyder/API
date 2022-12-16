@@ -40,7 +40,7 @@ class AuthController extends Controller
                 return response()->json(['message' => 'logged out'], Response::HTTP_OK);
             }
 
-            return response()->json([], Response::HTTP_BAD_REQUEST);
+            //return response()->json([], Response::HTTP_BAD_REQUEST);
         }
     }
 

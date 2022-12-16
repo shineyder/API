@@ -30,7 +30,7 @@ class UserPermissionController extends Controller
             report($exception);
             return response()->json([
                 'message' => 'Falha ao atualizar a permissão do usuário. ' . $exception->getMessage()
-            ], $exception->getCode());
+            ], Response::HTTP_BAD_REQUEST);
         }
     }
 
@@ -44,7 +44,7 @@ class UserPermissionController extends Controller
         } catch (Throwable $exception) {
             return response()->json([
                 'message' => 'Falha ao atualizar a permissão do usuário. ' . $exception->getMessage()
-            ], $exception->getCode());
+            ], Response::HTTP_BAD_REQUEST);
         }
     }
 }

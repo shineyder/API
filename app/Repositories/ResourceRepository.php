@@ -32,7 +32,7 @@ class ResourceRepository
     {
         $existentResource = ResourceModel::where([
             'slug' => $slug
-        ])->get();
+        ])->first();
 
         if (!isset($existentResource)) {
             throw new InvalidArgumentException('Não foi possível encontrar o Resource com este slug');
