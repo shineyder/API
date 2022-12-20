@@ -55,6 +55,20 @@ class ResourceTest extends TestCase
     /**
      * @return void
      */
+    public function test_set_deleted_at(){
+        $timestamp = new Timestamp();
+        $timestamp->setDeletedAt('2040-01-01');
+        $resource = $this->resource->setTimestamp($timestamp);
+
+        $this->assertObjectHasAttribute('timestamp', $resource);
+        $this->assertObjectHasAttribute('deletedAt', $resource->getTimestamp());
+        $this->assertEquals(Carbon::parse('2040-01-01'), $resource->getTimestamp()->getDeletedAt());
+        $this->assertEquals(['deletedAt' => Carbon::parse('2040-01-01')],$resource->getTimestamp()->jsonSerialize());
+    }
+
+    /**
+     * @return void
+     */
     public function test_get_model_data(){
         $resourceModelData = $this->resource->getModelData();
         $expectedData = [

@@ -2,14 +2,19 @@
 
 namespace Tests\Feature\Repositories;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Repositories\UserRepository;
 use App\Entities\User as UserEntity;
 use App\Models\User as UserModel;
+use Database\Seeders\UserSeeder;
 use InvalidArgumentException;
 use Tests\TestCase;
 
 class UserRepositoryTest extends TestCase
 {
+    use RefreshDatabase;
+
+    protected $seeder = UserSeeder::class;
     private $userModel;
     private $userRepository;
     private $userEntity;
@@ -80,30 +85,38 @@ class UserRepositoryTest extends TestCase
     /**
      * @return void
      */
-    public function test_create_update_delete_complete_cycle(){
-        $createResult = $this->userRepository->create($this->userEntity);
-        $id = $createResult->getId();
-        $findResult = $this->userRepository->getModelById($id);
+    public function test_create(){
+        $this->userRepository->create($this->userEntity);
 
-        $this->assertNotEmpty($createResult);
-        $this->assertEquals($this->userEntity, $createResult);
-        $this->assertEquals('Adriano', $findResult->name);
+        $this->assertDatabaseHas('users', [
+            'email' => 'adrianoshineyder@hotmail.com',
+        ]);
+    }
 
-        $this->userEntity->setName('Adriano2');
+    /**
+     * @return void
+     */
+    public function test_update(){
+        $this->userEntity->setId(1);
+        $this->userEntity->setEmail('adrianoshineyder2@hotmail.com');
 
-        $updateResult = $this->userRepository->update($this->userEntity);
-        $findResult = $this->userRepository->getModelById($id);
+        $this->userRepository->update($this->userEntity);
 
-        $this->assertNotEmpty($updateResult);
-        $this->assertEquals($this->userEntity, $updateResult);
-        $this->assertEquals('Adriano2', $findResult->name);
+        $this->assertDatabaseHas('users', [
+            'email' => 'adrianoshineyder2@hotmail.com',
+        ]);
+    }
 
-        $deleteResult = $this->userRepository->delete($id);
+    /**
+     * @return void
+     */
+    public function test_delete(){
+        $deleteResult = $this->userRepository->delete(3);
         $this->assertTrue($deleteResult);
 
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Não foi possível encontrar o usuário com este id');
-        $this->userRepository->getModelById($id);
+        $this->assertDatabaseMissing('users', [
+            'email' => 'adrianocategory@example.com'
+        ]);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controller;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Http\Controllers\Api\UserPermissionController;
 use App\Http\Requests\UserMultiplePermissionUpdateRequest;
 use App\Http\Requests\UserUniquePermissionUpdateRequest;
@@ -12,6 +13,8 @@ use Tests\TestCase;
 
 class UserPermissionControllerTest extends TestCase
 {
+    use RefreshDatabase;
+
     private $uniqueService;
     private $multipleService;
     private $userPermissionController;
@@ -39,11 +42,12 @@ class UserPermissionControllerTest extends TestCase
 
         $this->uniqueService->expects($this->once())
             ->method('handle')
-            ->will($this->throwException(new Error()));
+            ->will($this->throwException(new Error('Um erro')));
 
         $response = $this->userPermissionController->updateOnePermission($updateUniqueRequest);
 
         $this->assertEquals(400, $response->getStatusCode());
+        $this->assertEquals('{"message":"Falha ao atualizar a permiss\u00e3o do usu\u00e1rio. Um erro"}', $response->getContent());
     }
 
     /**
@@ -74,11 +78,12 @@ class UserPermissionControllerTest extends TestCase
 
         $this->multipleService->expects($this->once())
             ->method('handle')
-            ->will($this->throwException(new Error()));
+            ->will($this->throwException(new Error('Um erro')));
 
         $response = $this->userPermissionController->updateMultiplePermission($updateMultipleRequest);
 
         $this->assertEquals(400, $response->getStatusCode());
+        $this->assertEquals('{"message":"Falha ao atualizar a permiss\u00e3o do usu\u00e1rio. Um erro"}', $response->getContent());
     }
 
     /**

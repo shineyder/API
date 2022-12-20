@@ -2,15 +2,20 @@
 
 namespace Tests\Feature\Repositories;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Entities\Resource;
 use App\Repositories\ResourcePermissionRepository;
 use App\Entities\ResourcePermission as ResourcePermissionEntity;
 use App\Models\UserResourcePermission as ResourcePermissionModel;
+use Database\Seeders\DatabaseSeeder;
 use InvalidArgumentException;
 use Tests\TestCase;
 
 class ResourcePermissionRepositoryTest extends TestCase
 {
+    use RefreshDatabase;
+
+    protected $seeder = DatabaseSeeder::class;
     private $resourcePermissionModel;
     private $resourcePermissionRepository;
     private $resourcePermissionEntity;
@@ -59,7 +64,7 @@ class ResourcePermissionRepositoryTest extends TestCase
     /**
      * @return void
      */
-    public function test_create_update_cycle(){
+    public function test_create(){
         $createResult = $this->resourcePermissionRepository->create(1,$this->resourcePermissionEntity);
         $findResult = $this->resourcePermissionRepository->getByUserIdAndResourceId(1,1);
 
@@ -67,18 +72,21 @@ class ResourcePermissionRepositoryTest extends TestCase
         $this->assertEquals($this->resourcePermissionEntity, $createResult);
         $this->assertEquals($this->resourcePermissionEntity->getId(), $findResult->id);
         $this->assertTrue($this->resourcePermissionEntity->hasPermission('view'));
+    }
 
+    /**
+     * @return void
+     */
+    public function test_update(){
         $this->resourcePermissionEntity->setPermission('view',FALSE);
 
-        $updateResult = $this->resourcePermissionRepository->update(1,$this->resourcePermissionEntity);
-        $findResult = $this->resourcePermissionRepository->getByUserIdAndResourceId(1,1);
+        $updateResult = $this->resourcePermissionRepository->update(2,$this->resourcePermissionEntity);
+        $findResult = $this->resourcePermissionRepository->getByUserIdAndResourceId(2,1);
 
         $this->assertNotEmpty($updateResult);
         $this->assertEquals($this->resourcePermissionEntity, $updateResult);
         $this->assertEquals($this->resourcePermissionEntity->getId(), $findResult->id);
         $this->assertFalse($this->resourcePermissionEntity->hasPermission('view'));
-
-        $this->resourcePermissionModel->destroy($findResult->id);
     }
 
     /**

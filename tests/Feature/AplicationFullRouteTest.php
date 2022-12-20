@@ -2,11 +2,17 @@
 
 namespace Tests\Feature;
 
+use Database\Seeders\DatabaseSeeder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
 
 class AplicationFullRouteTest extends TestCase
 {
+    use RefreshDatabase;
+
+    protected $seeder = DatabaseSeeder::class;
+
     private $headerWithToken;
 
     public function setUp():void{
@@ -45,7 +51,7 @@ class AplicationFullRouteTest extends TestCase
     public function test_application_returns_error_when_unauthenticated_user_refresh()
     {
         $response = $this->invalidUserLogin();
-        
+
         $response = $this->postJson('/api/auth/refresh');
 
         $response->assertStatus(400);

@@ -2,13 +2,19 @@
 
 namespace Tests\Feature\Http\Controller;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Http\Controllers\Api\ResourceController;
 use App\Repositories\ResourceRepository;
+use Database\Seeders\ResourceSeeder;
 use Error;
 use Tests\TestCase;
 
 class ResourceControllerTest extends TestCase
 {
+    use RefreshDatabase;
+
+    protected $seeder = ResourceSeeder::class;
+
     private $resouceRepository;
     private $resourceController;
 

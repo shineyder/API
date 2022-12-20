@@ -2,14 +2,19 @@
 
 namespace Tests\Feature\Repositories;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Repositories\ResourceRepository;
 use App\Entities\Resource as ResourceEntity;
 use App\Models\Resource as ResourceModel;
+use Database\Seeders\ResourceSeeder;
 use InvalidArgumentException;
 use Tests\TestCase;
 
 class ResourceRepositoryTest extends TestCase
 {
+    use RefreshDatabase;
+
+    protected $seeder = ResourceSeeder::class;
     private $resourceModel;
     private $resourceRepository;
     private $resourceEntity;
@@ -78,30 +83,39 @@ class ResourceRepositoryTest extends TestCase
     /**
      * @return void
      */
-    public function test_create_update_delete_complete_cycle(){
+    public function test_create(){
         $createResult = $this->resourceRepository->create($this->resourceEntity);
-        $id = $createResult->getId();
         $findResult = $this->resourceRepository->getBySlug('test');
 
         $this->assertNotEmpty($createResult);
         $this->assertEquals($this->resourceEntity, $createResult);
         $this->assertEquals('test', $findResult->slug);
+    }
 
-        $this->resourceEntity->setSlug('test2');
+    /**
+     * @return void
+     */
+    public function test_update(){
+        $this->resourceEntity->setId(1);
 
         $updateResult = $this->resourceRepository->update($this->resourceEntity);
-        $findResult = $this->resourceRepository->getBySlug('test2');
+        $findResult = $this->resourceRepository->getBySlug('test');
 
         $this->assertNotEmpty($updateResult);
         $this->assertEquals($this->resourceEntity, $updateResult);
-        $this->assertEquals('test2', $findResult->slug);
+        $this->assertEquals('test', $findResult->slug);
+    }
 
-        $deleteResult = $this->resourceRepository->delete($id);
+    /**
+     * @return void
+     */
+    public function test_delete(){
+        $deleteResult = $this->resourceRepository->delete(1);
         $this->assertTrue($deleteResult);
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Não foi possível encontrar o Resource com este slug');
-        $this->resourceRepository->getBySlug('test2');
+        $this->resourceRepository->getBySlug('product');
     }
 
     /**

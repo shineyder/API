@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Services;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Entities\ResourcePermission;
 use App\Entities\User as UserEntity;
 use App\Exceptions\PermissionHandlingException;
@@ -10,10 +11,14 @@ use App\Repositories\ResourcePermissionRepository;
 use App\Repositories\ResourceRepository;
 use App\Repositories\UserRepository;
 use App\Services\PermissionHandlerService;
+use Database\Seeders\UserSeeder;
 use Tests\TestCase;
 
 class PermissionHandlerServiceTest extends TestCase
 {
+    use RefreshDatabase;
+
+    protected $seeder = UserSeeder::class;
     private $resourcePermissionRepository;
     private $userRepository;
     private $resourceRepository;
@@ -42,7 +47,7 @@ class PermissionHandlerServiceTest extends TestCase
             $this->userRepository,
             $this->resourceRepository
         );
-        
+
         parent::setUp();
     }
 

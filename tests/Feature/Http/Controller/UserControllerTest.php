@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controller;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Entities\User as UserEntity;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Requests\UserCreateRequest;
@@ -12,6 +13,8 @@ use Tests\TestCase;
 
 class UserControllerTest extends TestCase
 {
+    use RefreshDatabase;
+
     private $userRepository;
     private $userController;
     private $userEntity;
@@ -90,8 +93,8 @@ class UserControllerTest extends TestCase
         $createRequest = $this->createMock(UserCreateRequest::class);
         $response = $this->userController->create($createRequest);
 
-        $this->assertEquals('{"message":"Falha ao criar usu\u00e1rio"}', $response->getContent());
         $this->assertEquals(400, $response->getStatusCode());
+        $this->assertEquals('{"message":"Falha ao criar usu\u00e1rio"}', $response->getContent());
     }
 
     /**
@@ -117,8 +120,8 @@ class UserControllerTest extends TestCase
         $updateRequest = $this->createMock(UserUpdateRequest::class);
         $response = $this->userController->update(1,$updateRequest);
 
-        $this->assertEquals('{"message":"Falha ao atualizar usu\u00e1rio"}', $response->getContent());
         $this->assertEquals(400, $response->getStatusCode());
+        $this->assertEquals('{"message":"Falha ao atualizar usu\u00e1rio"}', $response->getContent());
     }
 
     /**
@@ -146,8 +149,8 @@ class UserControllerTest extends TestCase
 
         $response = $this->userController->delete(1);
 
-        $this->assertEquals('{"message":"Falha ao deletar usu\u00e1rio"}', $response->getContent());
         $this->assertEquals(400, $response->getStatusCode());
+        $this->assertEquals('{"message":"Falha ao deletar usu\u00e1rio"}', $response->getContent());
     }
 
     /**

@@ -95,6 +95,15 @@ class ResourcePermissionTest extends TestCase
     /**
      * @return void
      */
+    public function test_has_no_resource(){
+        $this->resourcePermission->setResource(NULL);
+        $hasResource = $this->resourcePermission->hasResource();
+        $this->assertFalse($hasResource);
+    }
+
+    /**
+     * @return void
+     */
     public function test_has_resource_by_id(){
         $hasResourceById = $this->resourcePermission->hasResourceById(10);
         $this->assertTrue($hasResourceById);

@@ -2,13 +2,18 @@
 
 namespace Tests\Feature\Http\Controller;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Http\Controllers\Api\AuthController;
 use App\Repositories\UserRepository;
+use Database\Seeders\UserSeeder;
 use Illuminate\Http\Request;
 use Tests\TestCase;
 
 class AuthControllerTest extends TestCase
 {
+    use RefreshDatabase;
+
+    protected $seeder = UserSeeder::class;
     private $userRepository;
     private $authController;
     private $request;
@@ -31,6 +36,7 @@ class AuthControllerTest extends TestCase
         $response = $this->invalidUserLoggedIn();
 
         $this->assertEquals(400, $response->getStatusCode());
+        $this->assertEquals([], $response->getData());
     }
 
     /**
@@ -49,6 +55,7 @@ class AuthControllerTest extends TestCase
         $response = $this->authController->logout();
 
         $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals('{"message":"logged out"}', $response->getContent());
     }
 
     /**
@@ -59,6 +66,7 @@ class AuthControllerTest extends TestCase
         $response = $this->authController->logout();
 
         $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals('{"message":"logged out"}', $response->getContent());
     }
 
     /**
@@ -68,6 +76,7 @@ class AuthControllerTest extends TestCase
         $response = $this->authController->userProfile();
 
         $this->assertEquals(400, $response->getStatusCode());
+        $this->assertEquals([], $response->getData());
     }
 
     /**
@@ -87,6 +96,7 @@ class AuthControllerTest extends TestCase
         $response = $this->authController->refresh();
 
         $this->assertEquals(400, $response->getStatusCode());
+        $this->assertEquals([], $response->getData());
     }
 
     private function invalidUserLoggedIn(){
