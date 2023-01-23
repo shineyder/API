@@ -1,0 +1,278 @@
+name: 'User management'
+description: |-
+
+  Handles work with user, that includes display a list of all users, info about a specific user, create, update or delete actions.
+endpoints:
+  -
+    httpMethods:
+      - POST
+    uri: api/auth/register
+    metadata:
+      groupName: 'User management'
+      groupDescription: |-
+
+        Handles work with user, that includes display a list of all users, info about a specific user, create, update or delete actions.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Send a register request.'
+      description: |-
+        This endpoint allows you to try register in the system.
+        Unauthenticated users can't do anything, except try login or register.
+        If register request runs successfully, user will be automatically log in.
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      name:
+        name: name
+        description: 'The name of the user.'
+        required: true
+        example: example
+        type: string
+        custom: []
+      email:
+        name: email
+        description: 'The email of the user.'
+        required: true
+        example: exampleuser@example.com
+        type: string
+        custom: []
+      password:
+        name: password
+        description: 'The email of the user.'
+        required: true
+        example: pa$$word
+        type: string
+        custom: []
+    cleanBodyParameters:
+      name: example
+      email: exampleuser@example.com
+      password: pa$$word
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/user
+    metadata:
+      groupName: 'User management'
+      groupDescription: |-
+
+        Handles work with user, that includes display a list of all users, info about a specific user, create, update or delete actions.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Display list of all users.'
+      description: 'This endpoint allows you to see a list of all users.'
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"status":"Token de Autoriza\u00e7\u00e3o n\u00e3o encontrado"}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '59'
+          vary: Origin
+        description: null
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer c5Ehbfv1g64DkVP8e3a6aZd'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/user/{id}'
+    metadata:
+      groupName: 'User management'
+      groupDescription: |-
+
+        Handles work with user, that includes display a list of all users, info about a specific user, create, update or delete actions.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Display info of a specific user.'
+      description: 'This endpoint allows you to see info about a specific user.'
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the user.'
+        required: true
+        example: 1
+        type: integer
+        custom: []
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"status":"Token de Autoriza\u00e7\u00e3o n\u00e3o encontrado"}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '58'
+          vary: Origin
+        description: null
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer dac8g16efVa53vhkPbDZE46'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PUT
+    uri: 'api/user/{id}'
+    metadata:
+      groupName: 'User management'
+      groupDescription: |-
+
+        Handles work with user, that includes display a list of all users, info about a specific user, create, update or delete actions.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Send a update request.'
+      description: 'This endpoint allows you to update infos of a specific user.'
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the user.'
+        required: true
+        example: 1
+        type: integer
+        custom: []
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      name:
+        name: name
+        description: 'The name of the  user.'
+        required: true
+        example: example
+        type: string
+        custom: []
+      email:
+        name: email
+        description: 'The email of the  user.'
+        required: true
+        example: exampleuser@example.com
+        type: string
+        custom: []
+      password:
+        name: password
+        description: 'The email of the  user.'
+        required: true
+        example: pa$$word
+        type: string
+        custom: []
+    cleanBodyParameters:
+      name: example
+      email: exampleuser@example.com
+      password: pa$$word
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer fcEb3D5aVP8d1Zka4g6vh6e'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/user/{id}'
+    metadata:
+      groupName: 'User management'
+      groupDescription: |-
+
+        Handles work with user, that includes display a list of all users, info about a specific user, create, update or delete actions.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Send a delete request.'
+      description: 'This endpoint allows you to delete a specific user.'
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the user.'
+        required: true
+        example: 1
+        type: integer
+        custom: []
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 64586hcfVePb3d1kEgvZDaa'
+    controller: null
+    method: null
+    route: null
+    custom: []

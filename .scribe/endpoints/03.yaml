@@ -1,0 +1,52 @@
+name: 'Resources management'
+description: |-
+
+  Handles work with resources.
+endpoints:
+  -
+    httpMethods:
+      - GET
+    uri: api/resource
+    metadata:
+      groupName: 'Resources management'
+      groupDescription: |-
+
+        Handles work with resources.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'List resources.'
+      description: 'List all available resources.'
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"status":"Token de Autoriza\u00e7\u00e3o n\u00e3o encontrado"}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '57'
+          vary: Origin
+        description: null
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer gh646efVZab581dvkacED3P'
+    controller: null
+    method: null
+    route: null
+    custom: []

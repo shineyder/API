@@ -12,12 +12,23 @@ use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
+/**
+ * @group User management
+ *
+ * Handles work with user, that includes display a list of all users, info about a specific user, create, update or delete actions.
+ */
 class UserController extends Controller
 {
     public function __construct(private UserRepository $repository)
     {
     }
 
+    /**
+     * Display list of all users.
+     *
+     * This endpoint allows you to see a list of all users.
+     * @authenticated
+     */
     public function index()
     {
         try {
@@ -30,6 +41,14 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * Display info of a specific user.
+     *
+     * This endpoint allows you to see info about a specific user.
+     *
+     * @urlParam id integer required The ID of the user. Example: 1
+     * @authenticated
+     */
     public function info($id)
     {
         try {
@@ -42,6 +61,17 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * Send a register request.
+     *
+     * This endpoint allows you to try register in the system.
+     * Unauthenticated users can't do anything, except try login or register.
+     * If register request runs successfully, user will be automatically log in.
+     *
+     * @bodyParam name      string required The name of the user. Example: example
+     * @bodyParam email     string required The email of the user. Example: exampleuser@example.com
+     * @bodyParam password  string required The email of the user. Example: pa$$word
+     */
     public function create(UserCreateRequest $request)
     {
         try {
@@ -64,6 +94,19 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * Send a update request.
+     *
+     * This endpoint allows you to update infos of a specific user.
+     *
+     * @urlParam id integer required The ID of the user. Example: 1
+     *
+     * @bodyParam name string required The name of the  user. Example: example
+     * @bodyParam email string required The email of the  user. Example: exampleuser@example.com
+     * @bodyParam password string required The email of the  user. Example: pa$$word
+     *
+     * @authenticated
+     */
     public function update($id, UserUpdateRequest $request)
     {
         try {
@@ -88,6 +131,14 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * Send a delete request.
+     *
+     * This endpoint allows you to delete a specific user.
+     *
+     * @urlParam id integer required The ID of the user. Example: 1
+     * @authenticated
+     */
     public function delete($id)
     {
         try {

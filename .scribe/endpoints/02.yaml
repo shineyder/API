@@ -1,0 +1,99 @@
+name: 'Permissions management'
+description: |-
+
+  Update one or more permissions of a user.
+endpoints:
+  -
+    httpMethods:
+      - POST
+    uri: api/user/permission
+    metadata:
+      groupName: 'Permissions management'
+      groupDescription: |-
+
+        Update one or more permissions of a user.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Send a update multiple permission request.'
+      description: 'This endpoint allows you to update multiple permissions of a specific user.'
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      user_id:
+        name: user_id
+        description: 'The id of the user.'
+        required: true
+        example: 1
+        type: integer
+        custom: []
+      resource_permissions:
+        name: resource_permissions
+        description: 'List of permissions details.'
+        required: true
+        example:
+          - []
+        type: 'object[]'
+        custom: []
+      'resource_permissions[].resource_id':
+        name: 'resource_permissions[].resource_id'
+        description: 'The id of the resource.'
+        required: true
+        example: 1
+        type: integer
+        custom: []
+      'resource_permissions[].view':
+        name: 'resource_permissions[].view'
+        description: 'The view permission.'
+        required: true
+        example: true
+        type: boolean
+        custom: []
+      'resource_permissions[].create':
+        name: 'resource_permissions[].create'
+        description: 'The create permission.'
+        required: true
+        example: true
+        type: boolean
+        custom: []
+      'resource_permissions[].update':
+        name: 'resource_permissions[].update'
+        description: 'The update permission.'
+        required: true
+        example: true
+        type: boolean
+        custom: []
+      'resource_permissions[].delete':
+        name: 'resource_permissions[].delete'
+        description: 'The delete permission.'
+        required: true
+        example: true
+        type: boolean
+        custom: []
+    cleanBodyParameters:
+      user_id: 1
+      resource_permissions:
+        -
+          resource_id: 1
+          view: true
+          create: true
+          update: true
+          delete: true
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6V1hv8a4fgD6dZb3a5PEkec'
+    controller: null
+    method: null
+    route: null
+    custom: []
