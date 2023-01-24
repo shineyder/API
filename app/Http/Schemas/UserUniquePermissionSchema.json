@@ -1,0 +1,29 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "http://localhost/schemas/UserUniquePermissionSchema.json",
+    "title": "Schema of a form to update a single user permission",
+    "description": "Evaluates whether a request is properly structured.",
+    "type": "object",
+    "properties": {
+        "user_id": {
+            "type": "integer"
+        },
+        "resource_id": {
+            "type": "integer"
+        },
+        "view": {
+            "type": "boolean"
+        },
+        "create": {
+            "type": "boolean"
+        },
+        "update": {
+            "type": "boolean"
+        },
+        "delete": {
+            "type": "boolean"
+        }
+    },
+    "required": ["user_id", "resource_id", "view","create","update","delete"],
+    "additionalProperties": false
+}
