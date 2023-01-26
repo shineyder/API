@@ -76,14 +76,6 @@ paths:
       summary: Logout.
       operationId: logout
       description: "This endpoint try logout the authenticated user.\nIf an error occurs with the token, the authenticated user will be logout anyway."
-      parameters:
-        -
-          in: header
-          name: Authorization
-          description: ''
-          example: 'Bearer {YOUR_AUTH_KEY}'
-          schema:
-            type: string
       responses:
         200:
           description: ''
@@ -106,14 +98,6 @@ paths:
       summary: 'Get authenticated user data.'
       operationId: getAuthenticatedUserData
       description: 'This endpoint shows infos about authenticated user.'
-      parameters:
-        -
-          in: header
-          name: Authorization
-          description: ''
-          example: 'Bearer {YOUR_AUTH_KEY}'
-          schema:
-            type: string
       responses:
         200:
           description: ''
@@ -125,11 +109,9 @@ paths:
                   id: 1
                   name: example
                   email: exampleuser@example.com
-                  password: '[some_hash_password]'
                   isAdmin: false
                   resourcePermissions: []
-                  created_at: '2040-01-01'
-                  updated_at: '2040-01-01'
+                  timestamp: []
                 properties:
                   id:
                     type: integer
@@ -176,14 +158,6 @@ paths:
       summary: 'Send a update multiple permission request.'
       operationId: sendAUpdateMultiplePermissionRequest
       description: 'This endpoint allows you to update multiple permissions of a specific user.'
-      parameters:
-        -
-          in: header
-          name: Authorization
-          description: ''
-          example: 'Bearer {YOUR_AUTH_KEY}'
-          schema:
-            type: string
       responses:
         401:
           description: ''
@@ -252,14 +226,6 @@ paths:
       summary: 'List resources.'
       operationId: listResources
       description: 'List all available resources.'
-      parameters:
-        -
-          in: header
-          name: Authorization
-          description: ''
-          example: 'Bearer {YOUR_AUTH_KEY}'
-          schema:
-            type: string
       responses:
         401:
           description: ''
@@ -312,14 +278,6 @@ paths:
       summary: 'Display list of all users.'
       operationId: displayListOfAllUsers
       description: 'This endpoint allows you to see a list of all users.'
-      parameters:
-        -
-          in: header
-          name: Authorization
-          description: ''
-          example: 'Bearer {YOUR_AUTH_KEY}'
-          schema:
-            type: string
       responses:
         401:
           description: ''
@@ -340,14 +298,6 @@ paths:
       summary: 'Display info of a specific user.'
       operationId: displayInfoOfASpecificUser
       description: 'This endpoint allows you to see info about a specific user.'
-      parameters:
-        -
-          in: header
-          name: Authorization
-          description: ''
-          example: 'Bearer {YOUR_AUTH_KEY}'
-          schema:
-            type: string
       responses:
         401:
           description: ''
@@ -367,14 +317,6 @@ paths:
       summary: 'Send a update request.'
       operationId: sendAUpdateRequest
       description: 'This endpoint allows you to update infos of a specific user.'
-      parameters:
-        -
-          in: header
-          name: Authorization
-          description: ''
-          example: 'Bearer {YOUR_AUTH_KEY}'
-          schema:
-            type: string
       responses:
         401:
           description: ''
@@ -417,14 +359,6 @@ paths:
       summary: 'Send a delete request.'
       operationId: sendADeleteRequest
       description: 'This endpoint allows you to delete a specific user.'
-      parameters:
-        -
-          in: header
-          name: Authorization
-          description: ''
-          example: 'Bearer {YOUR_AUTH_KEY}'
-          schema:
-            type: string
       responses:
         401:
           description: ''
@@ -463,6 +397,3 @@ tags:
     name: 'User management'
     description: "\nHandles work with user, that includes display a list of all users, info about a specific user, create, update or delete actions."
 components:
-  securitySchemes:
-security:
-

@@ -103282,7 +103282,8 @@ __webpack_require__.r(__webpack_exports__);
 
 (0,swagger_ui__WEBPACK_IMPORTED_MODULE_0__["default"])({
   dom_id: '#swagger-api',
-  url: config('app.url') + "/public/swagger/api.yaml"
+  url: "http://localhost/api" + "/public/swagger/api.yaml",
+  supportedSubmitMethods: []
 });
 })();
 
