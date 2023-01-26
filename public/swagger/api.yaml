@@ -1,0 +1,468 @@
+openapi: 3.0.0
+info:
+  title: 'The PracticeProject API'
+  description: 'This API was initially developed for an entrance test and is now being used for practice. The skills practiced are: unit tests, documentation generation and JSON schemas.'
+  version: 1.0.0
+servers:
+  -
+    url: 'http://127.0.0.1:8000'
+paths:
+  /api/auth/login:
+    post:
+      summary: 'Send a login request.'
+      operationId: sendALoginRequest
+      description: "This endpoint allows you to try login.\nUnauthenticated users can't do anything, except try login or register."
+      responses:
+        200:
+          description: 'Valid credentials'
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: '{ "token": "{YOUR_AUTH_KEY}" }'
+        400:
+          description: 'Invalid credentials'
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: '[ ]'
+      tags:
+        - 'Auth management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'The email of the user.'
+                  example: example@example.com
+                password:
+                  type: string
+                  description: 'The password of the user.'
+                  example: pa$$word
+              required:
+                - email
+                - password
+      security: []
+  /api/auth/refresh:
+    post:
+      summary: 'Refresh token.'
+      operationId: refreshToken
+      description: 'This endpoint try to refresh JWT Token.'
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: '{YOUR_AUTH_KEY}'
+        400:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: '[ ]'
+      tags:
+        - 'Auth management'
+      security: []
+  /api/auth/logout:
+    post:
+      summary: Logout.
+      operationId: logout
+      description: "This endpoint try logout the authenticated user.\nIf an error occurs with the token, the authenticated user will be logout anyway."
+      parameters:
+        -
+          in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: '{ [ "message": "logged out" ] }'
+        401:
+          description: 'Unauthenticated user trying access endpoint'
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: '{ "status": "Token de Autorização não encontrado" }'
+      tags:
+        - 'Auth management'
+  /api/auth/user:
+    get:
+      summary: 'Get authenticated user data.'
+      operationId: getAuthenticatedUserData
+      description: 'This endpoint shows infos about authenticated user.'
+      parameters:
+        -
+          in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  name: example
+                  email: exampleuser@example.com
+                  password: '[some_hash_password]'
+                  isAdmin: false
+                  resourcePermissions: []
+                  created_at: '2040-01-01'
+                  updated_at: '2040-01-01'
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: example
+                  email:
+                    type: string
+                    example: exampleuser@example.com
+                  password:
+                    type: string
+                    example: '[some_hash_password]'
+                  isAdmin:
+                    type: boolean
+                    example: false
+                  resourcePermissions:
+                    type: array
+                    example: []
+                  created_at:
+                    type: string
+                    example: '2040-01-01'
+                  updated_at:
+                    type: string
+                    example: '2040-01-01'
+        400:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: '{ [ ] }'
+        401:
+          description: 'Unauthenticated user trying access endpoint'
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: '{ "status": "Token de Autorização não encontrado" }'
+      tags:
+        - 'Auth management'
+  /api/user/permission:
+    post:
+      summary: 'Send a update multiple permission request.'
+      operationId: sendAUpdateMultiplePermissionRequest
+      description: 'This endpoint allows you to update multiple permissions of a specific user.'
+      parameters:
+        -
+          in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: 'Token de Autorização não encontrado'
+                properties:
+                  status:
+                    type: string
+                    example: 'Token de Autorização não encontrado'
+      tags:
+        - 'Permissions management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  description: 'The id of the user.'
+                  example: 1
+                resource_permissions:
+                  type: array
+                  description: 'List of permissions details.'
+                  example:
+                    - {"resource_id":1,"view":true,"create":true,"update":true,"delete":true}
+                  items:
+                    type: object
+                    properties:
+                      resource_id:
+                        type: integer
+                        description: 'The id of the resource.'
+                        example: 1
+                      view:
+                        type: boolean
+                        description: 'The view permission.'
+                        example: true
+                      create:
+                        type: boolean
+                        description: 'The create permission.'
+                        example: true
+                      update:
+                        type: boolean
+                        description: 'The update permission.'
+                        example: true
+                      delete:
+                        type: boolean
+                        description: 'The delete permission.'
+                        example: true
+                    required:
+                      - resource_id
+                      - view
+                      - create
+                      - update
+                      - delete
+              required:
+                - user_id
+                - resource_permissions
+  /api/resource:
+    get:
+      summary: 'List resources.'
+      operationId: listResources
+      description: 'List all available resources.'
+      parameters:
+        -
+          in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: 'Token de Autorização não encontrado'
+                properties:
+                  status:
+                    type: string
+                    example: 'Token de Autorização não encontrado'
+      tags:
+        - 'Resources management'
+  /api/auth/register:
+    post:
+      summary: 'Send a register request.'
+      operationId: sendARegisterRequest
+      description: "This endpoint allows you to try register in the system.\nUnauthenticated users can't do anything, except try login or register.\nIf register request runs successfully, user will be automatically log in."
+      responses: {  }
+      tags:
+        - 'User management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'The name of the user.'
+                  example: example
+                email:
+                  type: string
+                  description: 'The email of the user.'
+                  example: exampleuser@example.com
+                password:
+                  type: string
+                  description: 'The email of the user.'
+                  example: pa$$word
+              required:
+                - name
+                - email
+                - password
+      security: []
+  /api/user:
+    get:
+      summary: 'Display list of all users.'
+      operationId: displayListOfAllUsers
+      description: 'This endpoint allows you to see a list of all users.'
+      parameters:
+        -
+          in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: 'Token de Autorização não encontrado'
+                properties:
+                  status:
+                    type: string
+                    example: 'Token de Autorização não encontrado'
+      tags:
+        - 'User management'
+  /api/user/{id}:
+    get:
+      summary: 'Display info of a specific user.'
+      operationId: displayInfoOfASpecificUser
+      description: 'This endpoint allows you to see info about a specific user.'
+      parameters:
+        -
+          in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: 'Token de Autorização não encontrado'
+                properties:
+                  status:
+                    type: string
+                    example: 'Token de Autorização não encontrado'
+      tags:
+        - 'User management'
+    put:
+      summary: 'Send a update request.'
+      operationId: sendAUpdateRequest
+      description: 'This endpoint allows you to update infos of a specific user.'
+      parameters:
+        -
+          in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: 'Token de Autorização não encontrado'
+                properties:
+                  status:
+                    type: string
+                    example: 'Token de Autorização não encontrado'
+      tags:
+        - 'User management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'The name of the  user.'
+                  example: example
+                email:
+                  type: string
+                  description: 'The email of the  user.'
+                  example: exampleuser@example.com
+                password:
+                  type: string
+                  description: 'The email of the  user.'
+                  example: pa$$word
+              required:
+                - name
+                - email
+                - password
+    delete:
+      summary: 'Send a delete request.'
+      operationId: sendADeleteRequest
+      description: 'This endpoint allows you to delete a specific user.'
+      parameters:
+        -
+          in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: 'Token de Autorização não encontrado'
+                properties:
+                  status:
+                    type: string
+                    example: 'Token de Autorização não encontrado'
+      tags:
+        - 'User management'
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the user.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+tags:
+  -
+    name: 'Auth management'
+    description: "\nHandles authenticate work including login and logout, token refresh and user profile display"
+  -
+    name: 'Permissions management'
+    description: "\nUpdate one or more permissions of a user."
+  -
+    name: 'Resources management'
+    description: "\nHandles work with resources."
+  -
+    name: 'User management'
+    description: "\nHandles work with user, that includes display a list of all users, info about a specific user, create, update or delete actions."
+components:
+  securitySchemes:
+security:
+
