@@ -3,9 +3,6 @@ info:
   title: 'The PracticeProject API'
   description: 'This API was initially developed for an entrance test and is now being used for practice. The skills practiced are: unit tests, documentation generation and JSON schemas.'
   version: 1.0.0
-servers:
-  -
-    url: 'http://127.0.0.1:8000'
 paths:
   /api/auth/login:
     post:
