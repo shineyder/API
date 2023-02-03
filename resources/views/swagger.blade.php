@@ -8,6 +8,6 @@
     </head>
     <body>
         <div id="swagger-api"></div>
-        <script src=<?php echo(config('app.url')."/public/js/swagger.js")?>></script>
+        <script src=<?php echo(config('app.url')."api/public/js/swagger.js")?>></script>
     </body>
 </html>
